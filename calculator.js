@@ -38,15 +38,44 @@ const operate = function(numberOne , operator , numberTwo){
 
 
 const numberBtns = document.querySelectorAll('button.number');
+const operatorBtns = document.querySelectorAll('button.operator')
 const display = document.querySelector('#display')
 var content = document.createElement('div')
-
-
-numberBtns.forEach((btn)=>{
-  btn.addEventListener('click', function(e) {
-    content.innerHTML += `${e.target.id}`
-    
-    display.appendChild(content)
-  });
+var content2 = document.createElement('div')
+let userNumber = ""
+let userNumberOne = ""
+let userNumberTwo = ""
+let userOperator = ""
   
-});
+function displayNumber(){
+  
+        numberBtns.forEach((btn)=>{
+            btn.addEventListener('click', function(e) {
+                content.innerHTML += `${e.target.id}`
+                userNumber += e.target.id
+                display.appendChild(content)
+                if (userOperator == ""){
+                adOperator() 
+                }
+                
+            });
+        });   
+    };
+
+function adOperator(){
+    operatorBtns.forEach((btn)=>{
+        btn.addEventListener('click',(e)=>{
+            userOperator = e.target.id
+            userNumberOne = userNumber
+            content.innerHTML = ""
+            userNumber = ""
+            displayNumber()
+        });
+    });
+};
+
+
+displayNumber()
+
+
+
