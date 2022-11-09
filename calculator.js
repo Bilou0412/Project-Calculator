@@ -19,7 +19,7 @@ const multiply = function(...array) {
 const divide = function(...array){
     return array.reduce((previousValue, currentValue)=> previousValue / currentValue 
     );
-}
+};
 
 const operate = function(numberOne , operator , numberTwo){
     if(operator == "+"){
@@ -34,4 +34,19 @@ const operate = function(numberOne , operator , numberTwo){
     else if( operator == "*"){
         return multiply(numberOne,numberTwo)
     }
-}
+};
+
+
+const numberBtns = document.querySelectorAll('button.number');
+const display = document.querySelector('#display')
+var content = document.createElement('div')
+
+
+numberBtns.forEach((btn)=>{
+  btn.addEventListener('click', function(e) {
+    content.innerHTML += `${e.target.id}`
+    
+    display.appendChild(content)
+  });
+  
+});

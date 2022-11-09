@@ -21,6 +21,7 @@ body{
     background-color: bisque;
 }
 #display{
+    box-sizing: border-box;
     display: flex;
     border: solid;
     width: 17rem;
@@ -28,6 +29,10 @@ body{
     margin-top: 1rem;
     border-radius: 1rem;
     background-color: rgb(184, 184, 184);
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 1rem;
+    
 }
 #keyboard{
     display: flex;
@@ -48,4 +53,9 @@ button{
     width: 3.5rem;
     height:3.5rem;
     background-color: rgb(208, 230, 250);
+}
+#display div{
+    display: flex;
+    font-size: xx-large;
+    
 }
