@@ -46,7 +46,8 @@ button#delete,button#clear{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    width: 8rem;   
+    width: 8rem;
+    background-color: rgb(255, 129, 129);  
 }
 button{
     display: flex;
@@ -58,4 +59,11 @@ button{
     display: flex;
     font-size: xx-large;
     
+}
+.operator{
+    background-color: rgb(184, 184, 248);
+}
+
+#point{
+    background-color: aquamarine;
 }

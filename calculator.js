@@ -39,55 +39,78 @@ const operate = function(numberOne , operator , numberTwo){
 
 const numberBtns = document.querySelectorAll('button.number');
 const operatorBtns = document.querySelectorAll('button.operator')
+const clearBtn = document.querySelector('#clear')
+const deletBtn = document.querySelector('#delete')
 const display = document.querySelector('#display')
 var content = document.createElement('div')
-var content2 = document.createElement('div')
-let userNumber = ""
 let userNumberOne = ""
 let userNumberTwo = ""
 let userOperator = ""
-let userOperator1  
-function displayNumber(){
-  
-        numberBtns.forEach((btn)=>{
-            if(userOperator == "" && userNumberTwo == ""){
-                btn.addEventListener('click', function(e) {
-                    content.innerHTML += `${e.target.id}`
-                    userNumberTwo += e.target.id
-                    display.appendChild(content);
-                    adOperator();  
-            });  
-            }else if(userOperator1 == "="){
-                adOperator();
-            }
-        });
-    };
+let passOperator = "false"
 
-function adOperator(){
-    operatorBtns.forEach((btn)=>{
-            btn.addEventListener('click',(e)=>{
-                if((e.target.id == "+"||e.target.id == "*"||e.target.id == "-"||e.target.id == "/") && userOperator1 != "true"){
-                    userOperator = e.target.id
-                    userNumberOne = userNumberTwo
-                    content.innerHTML = ""
-                    userNumberTwo = ""
-                    userOperator1 = "true"
-                    displayNumber();
-                }else if(e.target.id == "=" && userOperator1 != "="){
-                    userOperator1 = "="
-                    userNumberTwo = (operate(Number(userNumberOne),userOperator,Number(userNumberTwo)))
-                    content.innerHTML = `${userNumberTwo}`
-                    userNumberOne = ""
-                    displayNumber();
-                }
-                
-            });
-        });
-    
+numberBtns.forEach((btn)=>{
+    btn.addEventListener('click',function(e){
+        displayNumber(e.target.id)  
+    })
+});
+
+operatorBtns.forEach((btn)=>{
+    btn.addEventListener('click',function(e){
+        adOperator(e.target.id)
+    })
+});
+
+clearBtn.addEventListener('click',function(){
+    clear()
+});
+
+deletBtn.addEventListener('click',function(){
+    delete1()
+});
+
+function delete1(){
+    array = userNumberTwo.split('') 
+    array.pop()
+    array = array.toString().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\s]/g,"")
+    userNumberTwo = array
+    content.innerHTML = `${userNumberTwo}`
+}
+
+function clear(){
+    userNumberOne = ""
+    userNumberTwo = ""
+    userOperator = ""
+    content.innerHTML = ""
+    passOperator = "false"
+}
+
+function displayNumber(value){
+    if(passOperator == "true"){
+        content.innerHTML = ""
+        passOperator = "false" 
+    }
+    userNumberTwo += value
+    content.innerHTML += `${value}`
+    display.appendChild(content);
 };
 
-
-displayNumber();
-
-
-
+function adOperator(valueOperator){
+    if((valueOperator == "+"||valueOperator == "*"||valueOperator == "-"||valueOperator == "/")&&(userNumberOne === "")){
+        userOperator = valueOperator
+        userNumberOne = userNumberTwo
+        userNumberTwo = ""
+        content.innerHTML = ""
+    }else if(valueOperator == "="){
+        userNumberTwo = (operate(Number(userNumberOne),userOperator,Number(userNumberTwo)))
+        content.innerHTML = `${userNumberTwo}`
+        userNumberOne = ""
+        passOperator = "true"
+    }else if((valueOperator == "+"||valueOperator == "*"||valueOperator == "-"||valueOperator == "/")&&(userOperator == "+"||userOperator == "*"||userOperator == "-"||userOperator == "/")){
+        userNumberTwo = (operate(Number(userNumberOne),userOperator,Number(userNumberTwo)))
+        content.innerHTML = `${userNumberTwo}`
+        userOperator = valueOperator
+        userNumberOne = userNumberTwo
+        userNumberTwo = ""
+        passOperator = "true"
+    }
+};
