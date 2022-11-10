@@ -23,16 +23,16 @@ const divide = function(...array){
 
 const operate = function(numberOne , operator , numberTwo){
     if(operator == "+"){
-        return add(numberOne,numberTwo)
+        return add(numberOne,numberTwo);
     }
     else if(operator == "-") {
-        return subtract(numberOne,numberTwo)
+        return subtract(numberOne,numberTwo);
     }
     else if( operator == "/" ){
-        return divide(numberOne,numberTwo)
+        return divide(numberOne,numberTwo);
     }
     else if( operator == "*"){
-        return multiply(numberOne,numberTwo)
+        return multiply(numberOne,numberTwo);
     }
 };
 
@@ -46,36 +46,48 @@ let userNumber = ""
 let userNumberOne = ""
 let userNumberTwo = ""
 let userOperator = ""
-  
+let userOperator1  
 function displayNumber(){
   
         numberBtns.forEach((btn)=>{
-            btn.addEventListener('click', function(e) {
-                content.innerHTML += `${e.target.id}`
-                userNumber += e.target.id
-                display.appendChild(content)
-                if (userOperator == ""){
-                adOperator() 
-                }
-                
-            });
-        });   
+            if(userOperator == "" && userNumberTwo == ""){
+                btn.addEventListener('click', function(e) {
+                    content.innerHTML += `${e.target.id}`
+                    userNumberTwo += e.target.id
+                    display.appendChild(content);
+                    adOperator();  
+            });  
+            }else if(userOperator1 == "="){
+                adOperator();
+            }
+        });
     };
 
 function adOperator(){
     operatorBtns.forEach((btn)=>{
-        btn.addEventListener('click',(e)=>{
-            userOperator = e.target.id
-            userNumberOne = userNumber
-            content.innerHTML = ""
-            userNumber = ""
-            displayNumber()
+            btn.addEventListener('click',(e)=>{
+                if((e.target.id == "+"||e.target.id == "*"||e.target.id == "-"||e.target.id == "/") && userOperator1 != "true"){
+                    userOperator = e.target.id
+                    userNumberOne = userNumberTwo
+                    content.innerHTML = ""
+                    userNumberTwo = ""
+                    userOperator1 = "true"
+                    displayNumber();
+                }else if(e.target.id == "=" && userOperator1 != "="){
+                    userOperator1 = "="
+                    userNumberTwo = (operate(Number(userNumberOne),userOperator,Number(userNumberTwo)))
+                    content.innerHTML = `${userNumberTwo}`
+                    userNumberOne = ""
+                    displayNumber();
+                }
+                
+            });
         });
-    });
+    
 };
 
 
-displayNumber()
+displayNumber();
 
 
 
