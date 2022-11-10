@@ -40,33 +40,34 @@ const operate = function(numberOne , operator , numberTwo){
 const numberBtns = document.querySelectorAll('button.number');
 const operatorBtns = document.querySelectorAll('button.operator')
 const clearBtn = document.querySelector('#clear')
-const deletBtn = document.querySelector('#delete')
+const deleteBtn = document.querySelector('#delete')
 const display = document.querySelector('#display')
 var content = document.createElement('div')
 let userNumberOne = ""
 let userNumberTwo = ""
 let userOperator = ""
 let passOperator = "false"
-
+//click on number button send value of number to function displayNumber
 numberBtns.forEach((btn)=>{
     btn.addEventListener('click',function(e){
         displayNumber(e.target.id)  
     })
 });
-
+//click on operator button send value of operator to function adOperator
 operatorBtns.forEach((btn)=>{
     btn.addEventListener('click',function(e){
         adOperator(e.target.id)
     })
 });
-
+//click on clear button make clear function 
 clearBtn.addEventListener('click',function(){
     clear()
 });
-
-deletBtn.addEventListener('click',function(){
+//click on delete button make delete1 function (delete is reserved word ) 
+deleteBtn.addEventListener('click',function(){
     delete1()
 });
+
 
 function delete1(){
     array = userNumberTwo.split('') 
@@ -105,7 +106,11 @@ function adOperator(valueOperator){
         content.innerHTML = `${userNumberTwo}`
         userNumberOne = ""
         passOperator = "true"
-    }else if((valueOperator == "+"||valueOperator == "*"||valueOperator == "-"||valueOperator == "/")&&(userOperator == "+"||userOperator == "*"||userOperator == "-"||userOperator == "/")){
+    }else if((
+            valueOperator == "+"||valueOperator == "*"||valueOperator == "-"||valueOperator == "/"
+        )&&(
+            userOperator == "+"||userOperator == "*"||userOperator == "-"||userOperator == "/"
+        )){
         userNumberTwo = (operate(Number(userNumberOne),userOperator,Number(userNumberTwo)))
         content.innerHTML = `${userNumberTwo}`
         userOperator = valueOperator
