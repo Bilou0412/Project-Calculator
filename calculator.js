@@ -101,12 +101,21 @@ function adOperator(valueOperator){
         userNumberOne = userNumberTwo
         userNumberTwo = ""
         content.innerHTML = ""
-    }else if(valueOperator == "="){
+    }else if(valueOperator == "=" && ((userNumberTwo != "") && (userNumberOne != ""))){
         userNumberTwo = (operate(Number(userNumberOne),userOperator,Number(userNumberTwo)))
-        content.innerHTML = `${userNumberTwo}`
-        userNumberOne = ""
-        passOperator = "true"
-    }else if((
+        let decimalUser = userNumberTwo.toString()
+        decimalUser = decimalUser.split('')
+        decimalUser = decimalUser.length
+        if(decimalUser > 12){
+            content.innerHTML = `${userNumberTwo.toFixed(6)}`
+            userNumberOne = ""
+            passOperator = "true"
+        }else{
+            content.innerHTML = `${userNumberTwo}`
+            userNumberOne = ""
+            passOperator = "true"  
+        }
+        }else if((
             valueOperator == "+"||valueOperator == "*"||valueOperator == "-"||valueOperator == "/"
         )&&(
             userOperator == "+"||userOperator == "*"||userOperator == "-"||userOperator == "/"
